@@ -13,6 +13,7 @@ public class WeekViewEvent {
     private String mName;
     private String mLocation;
     private int mColor;
+    private int iconResource;
 
     public WeekViewEvent(){
 
@@ -73,6 +74,24 @@ public class WeekViewEvent {
      * Initializes the event for week view.
      * @param id The id of the event.
      * @param name Name of the event.
+     * @param location The location of the event.
+     * @param startTime The time when the event starts.
+     * @param endTime The time when the event ends.
+     * @param iconResource Resource icon
+     */
+    public WeekViewEvent(long id, String name, String location, Calendar startTime, Calendar endTime, int iconResource) {
+        this.mId = id;
+        this.mName = name;
+        this.mLocation = location;
+        this.mStartTime = startTime;
+        this.mEndTime = endTime;
+        this.iconResource = iconResource;
+    }
+
+    /**
+     * Initializes the event for week view.
+     * @param id The id of the event.
+     * @param name Name of the event.
      * @param startTime The time when the event starts.
      * @param endTime The time when the event ends.
      */
@@ -127,6 +146,14 @@ public class WeekViewEvent {
 
     public void setId(long id) {
         this.mId = id;
+    }
+
+    public int getIconResource() {
+        return iconResource;
+    }
+
+    public void setIconResource(int iconResource) {
+        this.iconResource = iconResource;
     }
 
     @Override
