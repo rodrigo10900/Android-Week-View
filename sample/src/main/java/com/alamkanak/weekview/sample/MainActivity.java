@@ -25,7 +25,8 @@ import java.util.Locale;
  * Website: http://alamkanak.github.io/
  */
 public class MainActivity extends ActionBarActivity implements MonthLoader.MonthChangeListener,
-        WeekView.EventClickListener, WeekView.EventLongPressListener, WeekView.ScrollListener {
+        WeekView.EventClickListener, WeekView.EventLongPressListener, WeekView.ScrollListener,
+        WeekView.EmptyViewClickListener, WeekView.EmptyViewLongPressListener {
 
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
@@ -53,6 +54,12 @@ public class MainActivity extends ActionBarActivity implements MonthLoader.Month
 
         // Set date change listener
         mWeekView.setScrollListener(this);
+
+        // Set empty click listener
+        mWeekView.setEmptyViewClickListener(this);
+
+        // Set empty long click listener
+        mWeekView.setEmptyViewLongPressListener(this);
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
@@ -269,5 +276,15 @@ public class MainActivity extends ActionBarActivity implements MonthLoader.Month
     @Override
     public void onFirstVisibleDayChanged(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay) {
         Toast.makeText(this, new SimpleDateFormat("dd/MM/yyyy").format(newFirstVisibleDay.getTime()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onEmptyViewClicked(Calendar time) {
+        Toast.makeText(this, "Clicked time: " + new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(time.getTime()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onEmptyViewLongPress(Calendar time) {
+        Toast.makeText(this, "Long pressed time: " + new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(time.getTime()), Toast.LENGTH_SHORT).show();
     }
 }

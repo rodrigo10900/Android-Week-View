@@ -138,7 +138,6 @@ public class WeekView extends View {
     private int maxHour = 22;
     private int totalHours = maxHour - minHour;
     private int totalMinutes = totalHours * 60;
-    private Context context;
 
     // Listeners.
     private EventClickListener mEventClickListener;
@@ -313,6 +312,10 @@ public class WeekView extends View {
             mShowDistinctPastFutureColor = a.getBoolean(R.styleable.WeekView_showDistinctPastFutureColor, mShowDistinctPastFutureColor);
             mShowDistinctWeekendColor = a.getBoolean(R.styleable.WeekView_showDistinctWeekendColor, mShowDistinctWeekendColor);
             mShowNowLine = a.getBoolean(R.styleable.WeekView_showNowLine, mShowNowLine);
+            minHour = a.getInteger(R.styleable.WeekView_minHour, minHour);
+            maxHour = a.getInteger(R.styleable.WeekView_maxHour, maxHour);
+            totalHours = maxHour - minHour;
+            totalMinutes = totalHours * 60;
 
         } finally {
             a.recycle();
@@ -563,8 +566,8 @@ public class WeekView extends View {
         Calendar oldFirstVisibleDay = mFirstVisibleDay;
         mFirstVisibleDay = (Calendar) today.clone();
         mFirstVisibleDay.add(Calendar.DATE, -(Math.round(mCurrentOrigin.x / (mWidthPerDay + mColumnGap))));
-        //if(!mFirstVisibleDay.equals(oldFirstVisibleDay) && mScrollListener != null){
-        if (mScrollListener != null) {
+        if(!mFirstVisibleDay.equals(oldFirstVisibleDay) && mScrollListener != null){
+        //if (mScrollListener != null) {
             mScrollListener.onFirstVisibleDayChanged(mFirstVisibleDay, oldFirstVisibleDay);
         }
         for (int dayNumber = leftDaysWithGaps + 1;
@@ -689,7 +692,8 @@ public class WeekView extends View {
                         - mHeaderRowPadding * 2 - mTimeTextHeight / 2 - mHeaderMarginBottom;
                 int hour = (int) (pixelsFromZero / mHourHeight);
                 int minute = (int) (60 * (pixelsFromZero - hour * mHourHeight) / mHourHeight);
-                day.add(Calendar.HOUR, hour);
+                //day.add(Calendar.HOUR, hour);
+                day.add(Calendar.HOUR, hour + minHour);
                 day.set(Calendar.MINUTE, minute);
                 return day;
             }
