@@ -134,8 +134,8 @@ public class WeekView extends View {
     private boolean mShowNowLine = false;
     private boolean mShowDistinctPastFutureColor = false;
     private Calendar visibleDate;
-    private int minHour = 8;
-    private int maxHour = 22;
+    private int minHour = 0;
+    private int maxHour = 24;
     private int totalHours = maxHour - minHour;
     private int totalMinutes = totalHours * 60;
 
@@ -1678,6 +1678,38 @@ public class WeekView extends View {
     public void setNowLineThickness(int nowLineThickness) {
         this.mNowLineThickness = nowLineThickness;
         invalidate();
+    }
+
+    /**
+     * Get de miminum hour displayed in the calendar
+     * @return Minimum hour displayed
+     */
+    public int getMinHour() {
+        return minHour;
+    }
+
+    /**
+     * Set de minimum hour displayed in the calendar
+     * @param minHour Minimum hour displayed
+     */
+    public void setMinHour(int minHour) {
+        this.minHour = minHour;
+    }
+
+    /**
+     * Get the maximum hour displayed in the calendar
+     * @return Maximum hour displayed
+     */
+    public int getMaxHour() {
+        return maxHour;
+    }
+
+    /**
+     * Set de maximum hour displayed in the calendar
+     * @param maxHour Maximum hour displayed
+     */
+    public void setMaxHour(int maxHour) {
+        this.maxHour = maxHour;
     }
 
     /////////////////////////////////////////////////////////////////
